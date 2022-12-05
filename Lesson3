@@ -1,0 +1,128 @@
+Реализовать алгоритм сортировки слиянием.
+
+package Lesson3;
+
+import
+ java.io.*;
+import java.util.Arrays;
+
+public class hw_3_1 {
+    public static void merge(int[] arr, int[] aux, int low, int mid, int high)
+    {
+        int k = low, i = low, j = mid + 1;
+ 
+        while (i <= mid && j <= high)
+        {
+            if (arr[i] <= arr[j]) {
+                aux[k++] = arr[i++];
+            }
+            else {
+                aux[k++] = arr[j++];
+            }
+        }
+ 
+        while (i <= mid) {
+            aux[k++] = arr[i++];
+        }
+ 
+        for (i = low; i <= high; i++) {
+            arr[i] = aux[i];
+        }
+    }
+ 
+    public static void mergesort(int[] arr, int[] aux, int low, int high)
+    {
+
+        if (high == low) {        
+            return;
+        }
+ 
+ 
+        int mid = (low + ((high - low) >> 1));
+ 
+ 
+        mergesort(arr, aux, low, mid);          
+        mergesort(arr, aux, mid + 1, high);     
+ 
+        merge(arr, aux, low, mid, high);        
+    }
+ 
+    public static boolean isSorted(int[] arr)
+    {
+        int prev = arr[0];
+        for (int i = 1; i < arr.length; i++)
+        {
+            if (prev > arr[i])
+            {
+                System.out.println("MergeSort Fails!!");
+                return false;
+            }
+            prev = arr[i];
+        }
+ 
+        return true;
+    }
+ 
+    public static void main(String[] args)
+    {
+        int[] arr = { 12, 3, 18, 24, 0, 5, -2 };
+        int[] aux = Arrays.copyOf(arr, arr.length);
+ 
+        mergesort(arr, aux, 0, arr.length - 1);
+ 
+        if (isSorted(arr)) {
+            System.out.println(Arrays.toString(arr));
+        }
+    }
+
+}
+
+Пусть дан произвольный список целых чисел. Удалить из него чётные числа.
+
+package Lesson3;
+
+import java.util.ArrayList;
+
+public class hw_3_2 {
+    public static void main(String[] args) {
+        int wlist[] = {1,2,3,4,5,7,8,9,10}; 
+        ArrayList<Integer> unevenlist= new ArrayList<>(wlist.length);
+
+        for(int i=0; i<wlist.length; i++){
+            if (wlist[i]%2 != 0){
+                unevenlist.add(wlist[i]);
+            }
+        }
+        System.out.println(unevenlist);
+    }
+}
+
+Задан целочисленный список ArrayList. Найти минимальное, максимальное и среднее арифметичское этого списка.
+
+package Lesson3;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class hw_3_3 {
+    public static void main(String[] args) {
+        //int newmas[] = {100,200,300,400,500};
+        ArrayList<Integer> examplelist = new ArrayList<>(){};
+        //examplelist = newmas[];
+        
+        examplelist.add(100);
+        examplelist.add(200);
+        examplelist.add(300);
+        examplelist.add(400);
+        examplelist.add(500);
+
+        int sum = 0;
+        for(int i = 0;i<examplelist.size();i++){
+            sum += examplelist.get(i);
+        }
+        int avg = sum/examplelist.size();
+        System.out.println("Минимальное значение списка " + Collections.min(examplelist));
+        System.out.println("Максимальное значение списка " + Collections.max(examplelist));
+        System.out.println("Среднее значение списка " + avg);
+    }
+}   
